@@ -12,4 +12,10 @@ public interface StudentRepository {
 
     Student addStudent(Student students);
 
+    String addMultipleStudents(ArrayList<Student> studentsList);
+
+    Student updateStudent(int studentId, Student updateStudent);
+
+    void deleteStudent(int studentId);
+
 }

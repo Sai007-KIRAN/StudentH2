@@ -33,4 +33,19 @@ public class StudentController {
     public Student addStudent(@RequestBody Student students) {
         return shs.addStudent(students);
     }
+
+    @PostMapping("/students/bulk")
+    public String addMultipleStudents(@RequestBody ArrayList<Student> studentsList) {
+        return shs.addMultipleStudents(studentsList);
+    }
+
+    @PutMapping("/students/{studentId}")
+    public Student updateStudent(@PathVariable("studentId") int studentId, @RequestBody Student updateStudent) {
+        return shs.updateStudent(studentId, updateStudent);
+    }
+
+    @DeleteMapping("/students/{studentId}")
+    public void deleteStudent(@PathVariable int studentId) {
+        shs.deleteStudent(studentId);
+    }
 }

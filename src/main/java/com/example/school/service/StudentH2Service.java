@@ -41,9 +41,50 @@ public class StudentH2Service implements StudentRepository {
         jd.update("Insert INTO STUDENT(studentName, gender, standard) VALUES(?, ?, ?)", students.getStudentName(),
                 students.getGender(), students.getStandard());
         Student addingStudent = jd.queryForObject(
-                "SELECT * FROM STUDENT WHERE studentName = ? AND gender = ? AND standard = ?",
+                "SELECT * FROM STUDENT WHERE studentName = ? AND gender = ? AND standard = ?", new StudentRowMapper(),
                 students.getStudentName(), students.getGender(), students.getStandard());
         return addingStudent;
+    }
+
+    @Override
+    public String addMultipleStudents(ArrayList<Student> studentsList) {
+        for (Student eachStudent : studentsList) {
+            jd.update("insert into student(studentName,gender,standard) values (?,?,?)",
+                    eachStudent.getStudentName(), eachStudent.getGender(), eachStudent.getStandard());
+        }
+        String responseMessage = String.format("Successfully added %d students", studentsList.size());
+        return responseMessage;
+    }
+
+    @Override
+    public Student updateStudent(int studentId, Student updateStudent) {
+        try {
+            Student existing = jd.queryForObject("SELECT * FROM STUDENT WHERE playerId = ?", new StudentRowMapper(),
+                    studentId);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        if (updateStudent.getStudentName() != null) {
+            jd.update("UPDATE STUDENT SET studentName = ? WHERE studentId = ?", updateStudent.getStudentName(),
+                    studentId);
+        }
+
+        if (updateStudent.getGender() != null) {
+            jd.update("UPDATE STUDENT SET gender = ? WHERE studentId = ?", updateStudent.getGender(),
+                    studentId);
+        }
+
+        if (updateStudent.getStandard() != null) {
+            jd.update("UPDATE STUDENT SET standard = ? WHERE studentId = ?", updateStudent.getStandard(),
+                    studentId);
+        }
+        return eachStudent(studentId);
+    }
+
+    @Override
+    public void deleteStudent(int studentId) {
+        jd.update("DELETE FROM STUDENT WHERE studentId = ?", studentId);
     }
 
 }
