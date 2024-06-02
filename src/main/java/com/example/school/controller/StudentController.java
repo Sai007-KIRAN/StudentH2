@@ -28,4 +28,9 @@ public class StudentController {
 
         return shs.eachStudent(studentId);
     }
+
+    @PostMapping("/students")
+    public Student addStudent(@RequestBody Student students) {
+        return shs.addStudent(students);
+    }
 }

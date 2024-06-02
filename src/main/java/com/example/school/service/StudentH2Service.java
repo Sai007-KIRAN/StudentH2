@@ -36,4 +36,14 @@ public class StudentH2Service implements StudentRepository {
         }
     }
 
+    @Override
+    public Student addStudent(Student students) {
+        jd.update("Insert INTO STUDENT(studentName, gender, standard) VALUES(?, ?, ?)", students.getStudentName(),
+                students.getGender(), students.getStandard());
+        Student addingStudent = jd.queryForObject(
+                "SELECT * FROM STUDENT WHERE studentName = ? AND gender = ? AND standard = ?",
+                students.getStudentName(), students.getGender(), students.getStandard());
+        return addingStudent;
+    }
+
 }

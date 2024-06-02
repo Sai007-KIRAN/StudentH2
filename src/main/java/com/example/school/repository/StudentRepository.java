@@ -10,4 +10,6 @@ public interface StudentRepository {
 
     Student eachStudent(int studentId);
 
+    Student addStudent(Student students);
+
 }
