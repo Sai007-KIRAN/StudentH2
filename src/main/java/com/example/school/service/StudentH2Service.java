@@ -59,7 +59,7 @@ public class StudentH2Service implements StudentRepository {
     @Override
     public Student updateStudent(int studentId, Student updateStudent) {
         try {
-            Student existing = jd.queryForObject("SELECT * FROM STUDENT WHERE playerId = ?", new StudentRowMapper(),
+            Student existing = jd.queryForObject("SELECT * FROM STUDENT WHERE studentId = ?", new StudentRowMapper(),
                     studentId);
         } catch (EmptyResultDataAccessException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
@@ -75,7 +75,7 @@ public class StudentH2Service implements StudentRepository {
                     studentId);
         }
 
-        if (updateStudent.getStandard() != null) {
+        if (updateStudent.getStandard() >= 0) {
             jd.update("UPDATE STUDENT SET standard = ? WHERE studentId = ?", updateStudent.getStandard(),
                     studentId);
         }

@@ -6,9 +6,9 @@ public class Student {
     private int studentId;
     private String studentName;
     private String gender;
-    private String standard;
+    private int standard;
 
-    public Student(int studentId, String studentName, String gender, String standard) {
+    public Student(int studentId, String studentName, String gender, int standard) {
         this.studentId = studentId;
         this.studentName = studentName;
         this.gender = gender;
@@ -39,11 +39,11 @@ public class Student {
         this.gender = gender;
     }
 
-    public String getStandard() {
+    public int getStandard() {
         return standard;
     }
 
-    public void setStandard(String standard) {
+    public void setStandard(int standard) {
         this.standard = standard;
     }
 
